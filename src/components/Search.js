@@ -123,7 +123,10 @@ const Search = () => {
             zIndex: "100",
           }}
         >
-          <Link style={{ textDecoration: "none" }} to={`/${resultado[0].id}`}>
+          <Link
+            style={{ textDecoration: "none" }}
+            to={`/heroe/${resultado[0].id}`}
+          >
             <Button
               fullWidth
               color="default"
