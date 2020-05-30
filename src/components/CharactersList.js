@@ -8,13 +8,16 @@ import { Link } from "react-router-dom";
 import Search from "../components/Search";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import LastPageIcon from "@material-ui/icons/LastPage";
+import FirstPageIcon from "@material-ui/icons/FirstPage";
 
 const CharactersList = () => {
   const characters = useSelector((store) => store.characters);
   const cargandoC = useSelector((store) => store.cargandoC);
 
   const [offset, setOffset] = useState(0);
-
+  const [arrayX, setArrayx] = useState([]);
+  const [index, setIndex] = useState(0);
   const dispatch = useDispatch();
 
   const nextPage = () => {
@@ -57,6 +60,103 @@ const CharactersList = () => {
             {index + 1}
           </Fab>
         ))}
+      </div>
+    );
+  };
+
+  const links11 = () => {
+    let array = [...Array(72)];
+
+    const mostrar = (index) => {
+      console.log(index);
+
+      if (index < 0) return;
+      if (index === 71) {
+        dispatch(getCharacters(21 * index));
+        setOffset(21 * index);
+        setIndex(64);
+      }
+      if (index >= 65) {
+        return;
+      }
+      dispatch(getCharacters(21 * index));
+      setOffset(21 * index);
+      setIndex(index);
+    };
+    const mostrar1 = (index) => {
+      dispatch(getCharacters(21 * index));
+      setOffset(21 * index);
+      setIndex(index);
+    };
+
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {array
+          .map((elem, index) => (
+            <Fab
+              color="primary"
+              id={index}
+              onClick={() => mostrar(index)}
+              size="large"
+              style={{ margin: "20px 20px 20px 12px" }}
+            >
+              <FirstPageIcon style={{ fontSize: "40px" }} />
+            </Fab>
+          ))
+          .slice(0, 1)}
+        <Fab
+          color="primary"
+          id={index}
+          onClick={() => mostrar(index - 1)}
+          size="large"
+          style={{ margin: "20px 20px 20px 12px" }}
+        >
+          <ChevronLeftIcon style={{ fontSize: "40px" }} />
+        </Fab>
+        {array
+          .map((elem, index) => (
+            <Fab
+              color="primary"
+              id={index}
+              onClick={() => mostrar1(index)}
+              size="small"
+              style={{ margin: "20px 20px 20px 12px" }}
+            >
+              {index + 1}
+            </Fab>
+          ))
+          .slice(index + 1, index + 8)}
+
+        <Fab
+          color="primary"
+          id={index}
+          onClick={() => mostrar(index + 1)}
+          size="large"
+          style={{ margin: "20px 20px 20px 12px" }}
+        >
+          <ChevronRightIcon style={{ fontSize: "40px" }} />
+        </Fab>
+
+        {array
+          .map((elem, index) => (
+            <Fab
+              color="primary"
+              id={index}
+              onClick={() => mostrar(index)}
+              size="large"
+              style={{ margin: "20px 20px 20px 12px" }}
+            >
+              <LastPageIcon style={{ fontSize: "40px" }} />
+            </Fab>
+          ))
+          .slice(71, 72)}
       </div>
     );
   };
@@ -148,7 +248,7 @@ const CharactersList = () => {
           <img height="140" src={loading} alt="" />
         )}
       </div>
-      <div
+      {/* <div
         style={{
           display: "flex",
           flexDirection: "row",
@@ -178,8 +278,25 @@ const CharactersList = () => {
           PRÓXIMOS{" "}
           <ChevronRightIcon style={{ marginLeft: "15px", fontSize: "80px" }} />
         </Button>
-      </div>
-      {links()}
+      </div> */}
+      {/* {links()} */}
+
+      <Typography
+        style={{
+          color: "white",
+          backgroundColor: "#ED1D24",
+          padding: "5px 10px",
+          borderRadius: "20px",
+          width: "120px",
+          marginLeft: "auto",
+          marginRight: "auto",
+        }}
+        align="center"
+        variant="h6"
+      >
+        PAGINA {index + 1}
+      </Typography>
+      {links11()}
     </Fragment>
   );
 };
