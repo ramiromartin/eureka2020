@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
-import { Button, Card, CardActionArea, Fab } from "@material-ui/core";
+import { Button, Card, CardActionArea, Fab, Grow } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { getCharacters, characterDetail } from "../redux/actions";
 import loading from "../img/loading.gif";
@@ -19,52 +19,56 @@ const CharactersList = () => {
   const [arrayX, setArrayx] = useState([]);
   const [index, setIndex] = useState(0);
   const [pageNumber, setPageNumber] = useState(0);
-
+  const [growMap, setGrowMap] = useState(false);
   const dispatch = useDispatch();
 
-  const nextPage = () => {
-    let bb = offset;
-    setOffset((bb += 21));
-  };
-  const previousPage = () => {
-    let bb = offset;
-    setOffset((bb -= 21));
-  };
+  // const nextPage = () => {
+  //   let bb = offset;
+  //   setOffset((bb += 21));
+  // };
+  // const previousPage = () => {
+  //   let bb = offset;
+  //   setOffset((bb -= 21));
+  // };
 
   useEffect(() => {
     dispatch(getCharacters(offset));
   }, [offset]);
 
-  const links = () => {
-    let array = [...Array(72)];
+  useEffect(() => {
+    setGrowMap(true);
+  }, []);
 
-    const mostrar = (index) => {
-      dispatch(getCharacters(21 * index));
-      setOffset(21 * index);
-    };
+  // const links = () => {
+  //   let array = [...Array(72)];
 
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {array.map((elem, index) => (
-          <Fab
-            id={index}
-            onClick={() => mostrar(index)}
-            size="small"
-            style={{ margin: "20px 20px 20px 12px" }}
-          >
-            {index + 1}
-          </Fab>
-        ))}
-      </div>
-    );
-  };
+  //   const mostrar = (index) => {
+  //     dispatch(getCharacters(21 * index));
+  //     setOffset(21 * index);
+  //   };
+
+  //   return (
+  //     <div
+  //       style={{
+  //         display: "flex",
+  //         flexWrap: "wrap",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //       }}
+  //     >
+  //       {array.map((elem, index) => (
+  //         <Fab
+  //           id={index}
+  //           onClick={() => mostrar(index)}
+  //           size="small"
+  //           style={{ margin: "20px 20px 20px 12px" }}
+  //         >
+  //           {index + 1}
+  //         </Fab>
+  //       ))}
+  //     </div>
+  //   );
+  // };
 
   const linksPaginas = () => {
     let array = [...Array(72)];
@@ -93,7 +97,6 @@ const CharactersList = () => {
     const mostrar1 = (index) => {
       dispatch(getCharacters(21 * index));
       setPageNumber(index);
-
       setOffset(21 * index);
       setIndex(index);
     };
@@ -187,65 +190,67 @@ const CharactersList = () => {
         <Search />
         {!cargandoC ? (
           characters.map((el) => (
-            <Link
-              id={el.id}
-              style={{ textDecoration: "none" }}
-              to={`/heroe/${el.id}`}
-            >
-              <Card
-                raised
-                onClick={() =>
-                  dispatch(
-                    characterDetail(
-                      el.id,
-                      `${el.thumbnail.path}.${el.thumbnail.extension}`,
-                      el.name,
-                      el.description
-                    )
-                  )
-                }
+            <Grow in={growMap}>
+              <Link
                 id={el.id}
-                style={{
-                  width: "150px",
-                  height: "150px",
-                  cursor: "pointer",
-                  border: "none",
-                  margin: "15px",
-                }}
+                style={{ textDecoration: "none" }}
+                to={`/heroe/${el.id}`}
               >
-                <CardActionArea
+                <Card
+                  raised
+                  onClick={() =>
+                    dispatch(
+                      characterDetail(
+                        el.id,
+                        `${el.thumbnail.path}.${el.thumbnail.extension}`,
+                        el.name,
+                        el.description
+                      )
+                    )
+                  }
+                  id={el.id}
                   style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "baseline",
-                    padding: "0px",
+                    width: "150px",
+                    height: "150px",
+                    cursor: "pointer",
+                    border: "none",
+                    margin: "15px",
                   }}
                 >
-                  <img
+                  <CardActionArea
                     style={{
-                      borderRadius: "0%",
-                      height: "150px",
-                      width: "150px",
-                    }}
-                    src={`${el.thumbnail.path}.${el.thumbnail.extension}`}
-                    alt=""
-                  />
-                  <p
-                    style={{
-                      position: "absolute",
-                      color: "white",
-                      textAlign: "center",
-                      fontWeight: "bold",
-                      fontSize: "16px",
-                      textShadow: "1px 1px 1px black",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "baseline",
+                      padding: "0px",
                     }}
                   >
-                    {el.name}
-                  </p>
-                </CardActionArea>
-              </Card>
-            </Link>
+                    <img
+                      style={{
+                        borderRadius: "0%",
+                        height: "150px",
+                        width: "150px",
+                      }}
+                      src={`${el.thumbnail.path}.${el.thumbnail.extension}`}
+                      alt=""
+                    />
+                    <p
+                      style={{
+                        position: "absolute",
+                        color: "white",
+                        textAlign: "center",
+                        fontWeight: "bold",
+                        fontSize: "16px",
+                        textShadow: "1px 1px 1px black",
+                      }}
+                    >
+                      {el.name}
+                    </p>
+                  </CardActionArea>
+                </Card>
+              </Link>
+            </Grow>
           ))
         ) : (
           <img height="140" src={loading} alt="" />

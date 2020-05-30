@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
-import { IconButton } from "@material-ui/core";
+import { IconButton, Slide } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFav } from "../redux/actions";
 import HighlightOffRoundedIcon from "@material-ui/icons/HighlightOffRounded";
@@ -9,8 +9,13 @@ import { Link } from "react-router-dom";
 
 const Favs = () => {
   const favoritos = useSelector((store) => store.favoritos);
-
+  const [agregado, setAgregado] = useState(false);
+  const [quitado, setQuitado] = useState(false);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setAgregado(true);
+  }, [favoritos]);
 
   return (
     <div
@@ -44,37 +49,39 @@ const Favs = () => {
         </h5>
       ) : (
         favoritos.slice(0, 2).map((el) => (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: "5px",
-            }}
-          >
-            {" "}
-            <img
-              src={el.image}
+          <Slide in={agregado}>
+            <div
               style={{
-                marginRight: "15px",
-                height: "35px",
-                width: "35px",
-                borderRadius: "50%",
-                paddingLeft: "10px",
-                paddingRight: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: "5px",
               }}
-              alt=""
-            />
-            <p style={{ color: "white" }}> {el.name}</p>
-            <Tooltip placement="right" arrow title="QUITAR">
-              <IconButton
-                onClick={() => dispatch(removeFav(el.id))}
-                color="primary"
-              >
-                <HighlightOffRoundedIcon style={{ color: "white" }} />
-              </IconButton>
-            </Tooltip>
-          </div>
+            >
+              {" "}
+              <img
+                src={el.image}
+                style={{
+                  marginRight: "15px",
+                  height: "35px",
+                  width: "35px",
+                  borderRadius: "50%",
+                  paddingLeft: "10px",
+                  paddingRight: "10px",
+                }}
+                alt=""
+              />
+              <p style={{ color: "white" }}> {el.name}</p>
+              <Tooltip placement="right" arrow title="QUITAR">
+                <IconButton
+                  onClick={() => dispatch(removeFav(el.id))}
+                  color="primary"
+                >
+                  <HighlightOffRoundedIcon style={{ color: "white" }} />
+                </IconButton>
+              </Tooltip>
+            </div>
+          </Slide>
         ))
       )}
       {favoritos.length > 2 && (

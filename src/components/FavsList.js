@@ -2,9 +2,8 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import { IconButton, Button } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFav } from "../redux/actions";
+import { removeFav, characterDetail } from "../redux/actions";
 import HighlightOffRoundedIcon from "@material-ui/icons/HighlightOffRounded";
-import Tooltip from "@material-ui/core/Tooltip";
 import { Link } from "react-router-dom";
 
 const FavsList = () => {
@@ -45,6 +44,7 @@ const FavsList = () => {
         favoritos.map((el) => (
           <div
             style={{
+              textDecoration: "none",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",

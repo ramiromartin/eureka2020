@@ -87,7 +87,9 @@ const CharacterDetail = () => {
               </p>
               <Button
                 disabled={agregado}
-                onClick={() => agregar(info.id, info.image, info.name)}
+                onClick={() =>
+                  agregar(info.id, info.image, info.name, info.description)
+                }
                 size="large"
                 color="primary"
                 variant="text"
