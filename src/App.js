@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
 import CharactersList from "./components/CharactersList";
 import CharacterDetail from "./components/CharacterDetail";
+import FavsList from "./components/FavsList";
 
 const theme = createMuiTheme({
   palette: {
@@ -21,7 +22,8 @@ function App() {
           <Header />
           <Switch>
             <Route exact path="/" component={CharactersList} />
-            <Route path="/:id" component={CharacterDetail} />
+            <Route path="/heroe/:id" component={CharacterDetail} />
+            <Route path="/favs" component={FavsList} />
           </Switch>
         </Router>
       </Fragment>

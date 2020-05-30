@@ -30,6 +30,8 @@ const CharactersList = () => {
   }, [offset]);
 
   const links = () => {
+    let array = [...Array(72)];
+
     const mostrar = (index) => {
       dispatch(getCharacters(21 * index));
       setOffset(21 * index);
@@ -39,7 +41,7 @@ const CharactersList = () => {
       <div
         style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
       >
-        {[...Array(72)].map((elem, index) => (
+        {array.map((elem, index) => (
           <Fab
             id={index}
             onClick={() => mostrar(index)}
@@ -80,7 +82,7 @@ const CharactersList = () => {
             <Link
               id={el.id}
               style={{ textDecoration: "none" }}
-              to={`/${el.id}`}
+              to={`/heroe/${el.id}`}
             >
               <Card
                 raised

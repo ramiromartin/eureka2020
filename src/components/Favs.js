@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFav } from "../redux/actions";
 import HighlightOffRoundedIcon from "@material-ui/icons/HighlightOffRounded";
 import Tooltip from "@material-ui/core/Tooltip";
+import { Link } from "react-router-dom";
 
 const Favs = () => {
   const favoritos = useSelector((store) => store.favoritos);
@@ -24,9 +25,11 @@ const Favs = () => {
         zIndex: "100",
       }}
     >
-      <Typography style={{ color: "white" }} align="center" variant="h6">
-        FAVORITOS
-      </Typography>
+      <Link style={{ textDecoration: "none" }} to="/favs">
+        <Typography style={{ color: "white" }} align="center" variant="h6">
+          MIS FAVORITOS
+        </Typography>
+      </Link>
 
       {favoritos.length === 0 ? (
         <h5
@@ -40,11 +43,11 @@ const Favs = () => {
           ¡ AGREGA TUS HEROES FAVORITOS !{" "}
         </h5>
       ) : (
-        favoritos.map((el) => (
+        favoritos.slice(0, 2).map((el) => (
           <div
             style={{
               display: "flex",
-              justifyContent: "center",
+              justifyContent: "space-between",
               alignItems: "center",
               marginBottom: "5px",
             }}
@@ -57,6 +60,8 @@ const Favs = () => {
                 height: "35px",
                 width: "35px",
                 borderRadius: "50%",
+                paddingLeft: "10px",
+                paddingRight: "10px",
               }}
               alt=""
             />
@@ -71,6 +76,14 @@ const Favs = () => {
             </Tooltip>
           </div>
         ))
+      )}
+      {favoritos.length > 2 && (
+        <Link style={{ textDecoration: "none" }} to="/favs">
+          <p style={{ color: "white", fontWeight: "bold" }}>
+            {" "}
+            {favoritos.length - 2} MÁS (VER TODOS)
+          </p>
+        </Link>
       )}
     </div>
   );
