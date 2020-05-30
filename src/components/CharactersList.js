@@ -14,6 +14,7 @@ const CharactersList = () => {
   const cargandoC = useSelector((store) => store.cargandoC);
 
   const [offset, setOffset] = useState(0);
+
   const dispatch = useDispatch();
 
   const nextPage = () => {
@@ -39,14 +40,19 @@ const CharactersList = () => {
 
     return (
       <div
-        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
         {array.map((elem, index) => (
           <Fab
             id={index}
             onClick={() => mostrar(index)}
             size="small"
-            style={{ margin: "20px 12px 20px 12px" }}
+            style={{ margin: "20px 20px 20px 12px" }}
           >
             {index + 1}
           </Fab>
@@ -60,7 +66,6 @@ const CharactersList = () => {
       <Typography align="center" variant="h4">
         SUPERHEROES
       </Typography>
-
       <div
         style={{
           width: "95%",

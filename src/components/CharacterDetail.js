@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
-import { Button } from "@material-ui/core";
+import { Button, Fade } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import loading from "../img/loading.gif";
 import { addFav } from "../redux/actions";
@@ -13,6 +13,7 @@ const CharacterDetail = () => {
   const favoritos = useSelector((store) => store.favoritos);
   const dispatch = useDispatch();
   const [agregado, setAgregado] = useState(false);
+  const [fadeIn, setFadeIn] = useState(false);
 
   const agregar = (id, image, name) => {
     dispatch(addFav(id, image, name));
@@ -20,6 +21,10 @@ const CharacterDetail = () => {
     //   setAgregado(true);
     // } else setAgregado(false);
   };
+
+  useEffect(() => {
+    setFadeIn(true);
+  }, []);
 
   useEffect(() => {
     if (favoritos.find((el) => info.id === el.id) !== undefined) {
@@ -56,12 +61,14 @@ const CharacterDetail = () => {
             }}
           >
             <div>
-              <img
-                style={{ borderRadius: "5px" }}
-                height="330"
-                src={info.image}
-                alt=""
-              />
+              <Fade timeout={1000} in={fadeIn}>
+                <img
+                  style={{ borderRadius: "5px", marginRight: "10px" }}
+                  height="330"
+                  src={info.image}
+                  alt=""
+                />
+              </Fade>
             </div>
             <div
               style={{
