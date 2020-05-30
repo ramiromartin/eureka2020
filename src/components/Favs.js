@@ -18,7 +18,7 @@ const Favs = () => {
         position: "absolute",
         width: "330px",
         height: "auto",
-        borderRadius: "2px",
+        borderRadius: "3px",
         backgroundColor: "#ED1D24",
         top: "30px",
         right: "30px",

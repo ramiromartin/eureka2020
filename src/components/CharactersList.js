@@ -18,6 +18,8 @@ const CharactersList = () => {
   const [offset, setOffset] = useState(0);
   const [arrayX, setArrayx] = useState([]);
   const [index, setIndex] = useState(0);
+  const [pageNumber, setPageNumber] = useState(0);
+
   const dispatch = useDispatch();
 
   const nextPage = () => {
@@ -64,27 +66,34 @@ const CharactersList = () => {
     );
   };
 
-  const links11 = () => {
+  const linksPaginas = () => {
     let array = [...Array(72)];
 
     const mostrar = (index) => {
-      console.log(index);
-
       if (index < 0) return;
+
       if (index === 71) {
         dispatch(getCharacters(21 * index));
+        setPageNumber(index);
         setOffset(21 * index);
         setIndex(64);
       }
+
       if (index >= 65) {
+        setPageNumber(index);
         return;
       }
+
       dispatch(getCharacters(21 * index));
+      setPageNumber(index);
       setOffset(21 * index);
       setIndex(index);
     };
+
     const mostrar1 = (index) => {
       dispatch(getCharacters(21 * index));
+      setPageNumber(index);
+
       setOffset(21 * index);
       setIndex(index);
     };
@@ -98,19 +107,16 @@ const CharactersList = () => {
           alignItems: "center",
         }}
       >
-        {array
-          .map((elem, index) => (
-            <Fab
-              color="primary"
-              id={index}
-              onClick={() => mostrar(index)}
-              size="large"
-              style={{ margin: "20px 20px 20px 12px" }}
-            >
-              <FirstPageIcon style={{ fontSize: "40px" }} />
-            </Fab>
-          ))
-          .slice(0, 1)}
+        <Fab
+          color="primary"
+          id={index}
+          onClick={() => mostrar(0)}
+          size="large"
+          style={{ margin: "20px 20px 20px 12px" }}
+        >
+          <FirstPageIcon style={{ fontSize: "40px" }} />
+        </Fab>
+
         <Fab
           color="primary"
           id={index}
@@ -120,6 +126,7 @@ const CharactersList = () => {
         >
           <ChevronLeftIcon style={{ fontSize: "40px" }} />
         </Fab>
+
         {array
           .map((elem, index) => (
             <Fab
@@ -144,19 +151,15 @@ const CharactersList = () => {
           <ChevronRightIcon style={{ fontSize: "40px" }} />
         </Fab>
 
-        {array
-          .map((elem, index) => (
-            <Fab
-              color="primary"
-              id={index}
-              onClick={() => mostrar(index)}
-              size="large"
-              style={{ margin: "20px 20px 20px 12px" }}
-            >
-              <LastPageIcon style={{ fontSize: "40px" }} />
-            </Fab>
-          ))
-          .slice(71, 72)}
+        <Fab
+          color="primary"
+          id={index}
+          onClick={() => mostrar(71)}
+          size="large"
+          style={{ margin: "20px 20px 20px 12px" }}
+        >
+          <LastPageIcon style={{ fontSize: "40px" }} />
+        </Fab>
       </div>
     );
   };
@@ -294,9 +297,9 @@ const CharactersList = () => {
         align="center"
         variant="h6"
       >
-        PAGINA {index + 1}
+        PAGINA {pageNumber + 1}
       </Typography>
-      {links11()}
+      {linksPaginas()}
     </Fragment>
   );
 };
