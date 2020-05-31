@@ -39,37 +39,6 @@ const CharactersList = () => {
     setGrowMap(true);
   }, []);
 
-  // const links = () => {
-  //   let array = [...Array(72)];
-
-  //   const mostrar = (index) => {
-  //     dispatch(getCharacters(21 * index));
-  //     setOffset(21 * index);
-  //   };
-
-  //   return (
-  //     <div
-  //       style={{
-  //         display: "flex",
-  //         flexWrap: "wrap",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //       }}
-  //     >
-  //       {array.map((elem, index) => (
-  //         <Fab
-  //           id={index}
-  //           onClick={() => mostrar(index)}
-  //           size="small"
-  //           style={{ margin: "20px 20px 20px 12px" }}
-  //         >
-  //           {index + 1}
-  //         </Fab>
-  //       ))}
-  //     </div>
-  //   );
-  // };
-
   const linksPaginas = () => {
     let array = [...Array(72)];
 
@@ -84,7 +53,9 @@ const CharactersList = () => {
       }
 
       if (index >= 65) {
+        dispatch(getCharacters(21 * index));
         setPageNumber(index);
+        setOffset(21 * index);
         return;
       }
 
@@ -95,6 +66,12 @@ const CharactersList = () => {
     };
 
     const mostrar1 = (index) => {
+      if (index >= 65) {
+        setPageNumber(index);
+        dispatch(getCharacters(21 * index));
+        return;
+      }
+
       dispatch(getCharacters(21 * index));
       setPageNumber(index);
       setOffset(21 * index);
@@ -143,7 +120,6 @@ const CharactersList = () => {
             </Fab>
           ))
           .slice(index + 1, index + 8)}
-
         <Fab
           color="primary"
           id={index}

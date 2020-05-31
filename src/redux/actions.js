@@ -10,7 +10,7 @@ import axios from "axios";
 export const getCharacters = (offset) => async (dispatch) => {
   try {
     const res = await axios.get(
-      `http://gateway.marvel.com/v1/public/characters?apikey=eb21a48643b2901fea305523c0c44e18&limit=21&offset=${offset}`
+      `http://gateway.marvel.com/v1/public/characters?apikey=496e0b5ccc3316a386580d5e8d42889c&limit=21&offset=${offset}`
     );
 
     console.log(" PERSONAJES RECIBIDOS OK! ");
