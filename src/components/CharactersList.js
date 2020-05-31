@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import { Card, CardActionArea, Fab, Grow } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
-import { getCharacters, characterDetail } from "../redux/actions";
+import { getCharacters, characterDetail, saveOffset } from "../redux/actions";
 import loading from "../img/loading.gif";
 import { Link } from "react-router-dom";
 import Search from "../components/Search";
@@ -22,10 +22,12 @@ const CharactersList = () => {
   const [pageNumber, setPageNumber] = useState(0);
   const [growMap, setGrowMap] = useState(false);
   const dispatch = useDispatch();
+  const lastOffset = useSelector((store) => store.lastOffset);
 
   useEffect(() => {
-    dispatch(getCharacters(offset));
-  }, [offset]);
+    dispatch(getCharacters(lastOffset));
+    setIndex(lastOffset / 21);
+  }, []);
 
   useEffect(() => {
     setGrowMap(true);
@@ -46,6 +48,9 @@ const CharactersList = () => {
       setPageNumber(index);
       setOffset(21 * index);
       setIndex(index);
+
+      dispatch(saveOffset(21 * index));
+      console.log("OFFSET GUARDADO" + " --> " + 21 * index);
     };
 
     return (
@@ -61,6 +66,7 @@ const CharactersList = () => {
         }}
       >
         <Fab
+          disabled={index - 1 < 0}
           color="primary"
           id={index}
           onClick={() => mostrar(0)}
@@ -82,6 +88,7 @@ const CharactersList = () => {
         </Fab>
 
         <Fab
+          disabled={index - 1 < 0}
           color="primary"
           id={index}
           onClick={() => mostrar(index - 1)}
@@ -109,9 +116,11 @@ const CharactersList = () => {
           align="center"
           variant="h6"
         >
-          PÁGINA {pageNumber + 1}
+          PÁGINA {lastOffset / 21 + 1}
         </Typography>
+
         <Fab
+          disabled={index + 1 > 71}
           color="primary"
           id={index}
           onClick={() => mostrar(index + 1)}
@@ -133,6 +142,7 @@ const CharactersList = () => {
         </Fab>
 
         <Fab
+          disabled={index + 1 > 71}
           color="primary"
           id={index}
           onClick={() => mostrar(71)}

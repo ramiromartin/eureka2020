@@ -3,6 +3,7 @@ const initialState = {
   cargandoC: true,
   characterInfo: {},
   favoritos: [],
+  lastOffset: 0,
 };
 
 export default function addReducer(state = initialState, action) {
@@ -24,6 +25,12 @@ export default function addReducer(state = initialState, action) {
         favoritos: [
           ...state.favoritos.filter((el) => el.id !== action.payload),
         ],
+      };
+
+    case "SAVE_OFFSET":
+      return {
+        ...state,
+        lastOffset: action.payload,
       };
 
     default:

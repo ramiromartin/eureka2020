@@ -3,6 +3,7 @@ import {
   CHARACTER_DETAIL,
   ADD_FAV,
   REMOVE_FAV,
+  SAVE_OFFSET,
 } from "./actionsTypes";
 
 import axios from "axios";
@@ -73,6 +74,18 @@ export const removeFav = (id) => async (dispatch) => {
     });
   } catch (err) {
     console.log("ERROR QUITAR FAVORITOS");
+    console.log(err);
+  }
+};
+
+export const saveOffset = (offset) => async (dispatch) => {
+  try {
+    dispatch({
+      type: SAVE_OFFSET,
+      payload: offset,
+    });
+  } catch (err) {
+    console.log("ERROR GUARDAR OFFSET");
     console.log(err);
   }
 };
