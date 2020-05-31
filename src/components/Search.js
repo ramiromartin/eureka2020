@@ -72,7 +72,7 @@ const Search = () => {
         name="busqueda"
         variant="outlined"
         fullWidth
-        placeholder="Buscar Superheroe . . . "
+        placeholder="Buscar Superhéroe . . . "
         id=""
         value={busqueda}
         inputProps={{ autoFocus: true }}
@@ -143,7 +143,7 @@ const Search = () => {
                 )
               }
             >
-              Heroe encontrado!{" "}
+              Héroe encontrado!{" "}
               <ArrowRightAltIcon
                 style={{ marginRight: "10px", marginLeft: "15px" }}
               />{" "}

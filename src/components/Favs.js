@@ -30,7 +30,11 @@ const Favs = () => {
       }}
     >
       <Link style={{ textDecoration: "none" }} to="/favs">
-        <Typography style={{ color: "white" }} align="center" variant="h6">
+        <Typography
+          style={{ color: "white", fontWeight: "bolder" }}
+          align="center"
+          variant="h6"
+        >
           MIS FAVORITOS
         </Typography>
       </Link>
@@ -42,9 +46,10 @@ const Favs = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            fontWeight: "bold",
           }}
         >
-          ¡ AGREGA TUS HEROES FAVORITOS !{" "}
+          ¡ AGREGA TUS HÉROES FAVORITOS !{" "}
         </h5>
       ) : (
         favoritos.slice(0, 2).map((el) => (

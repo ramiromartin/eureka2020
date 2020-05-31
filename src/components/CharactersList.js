@@ -158,7 +158,7 @@ const CharactersList = () => {
   return (
     <Fragment>
       <Typography align="center" variant="h4">
-        SUPERHEROES
+        SUPERHÉROES
       </Typography>
       <div
         style={{
@@ -257,7 +257,12 @@ const CharactersList = () => {
             </Grow>
           ))
         ) : (
-          <img height="140" src={loading} alt="" />
+          <img
+            style={{ marginTop: "70px", marginBottom: "90px" }}
+            height="150"
+            src={loading}
+            alt=""
+          />
         )}
       </div>
       {/* <div

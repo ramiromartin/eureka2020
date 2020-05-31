@@ -83,7 +83,7 @@ const CharacterDetail = () => {
               <p>
                 {info.description !== ""
                   ? info.description
-                  : "No hay descripcion del Superheroe"}
+                  : "No hay descripcion del Superhéroe"}
               </p>
               <Button
                 disabled={agregado}
@@ -109,7 +109,7 @@ const CharacterDetail = () => {
         <img src={loading} alt="" />
       )}
       <Link to="/" style={{ textDecoration: "none", marginTop: "15px" }}>
-        <Button variant="outlined" size="large">
+        <Button variant="outlined" size="large" style={{ width: "350px" }}>
           VOLVER AL LISTADO
         </Button>
       </Link>

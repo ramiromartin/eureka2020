@@ -25,7 +25,7 @@ const FavsList = () => {
         align="center"
         variant="h4"
       >
-        TUS HEROES FAVORITOS
+        TUS HÉROES FAVORITOS
       </Typography>
 
       {favoritos.length === 0 ? (
@@ -38,7 +38,7 @@ const FavsList = () => {
             width: "70%",
           }}
         >
-          NO TIENES HEROES PARA MOSTRAR
+          NO TIENES HÉROES PARA MOSTRAR
         </h4>
       ) : (
         favoritos.map((el) => (
@@ -78,7 +78,7 @@ const FavsList = () => {
         ))
       )}
       <Link to="/" style={{ textDecoration: "none", marginTop: "15px" }}>
-        <Button variant="outlined" size="large">
+        <Button style={{ width: "350px" }} variant="outlined" size="large">
           VOLVER AL LISTADO
         </Button>
       </Link>
