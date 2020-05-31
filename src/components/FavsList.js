@@ -2,7 +2,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import { IconButton, Button } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFav, characterDetail } from "../redux/actions";
+import { removeFav } from "../redux/actions";
 import HighlightOffRoundedIcon from "@material-ui/icons/HighlightOffRounded";
 import { Link } from "react-router-dom";
 

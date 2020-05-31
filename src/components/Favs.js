@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 const Favs = () => {
   const favoritos = useSelector((store) => store.favoritos);
   const [agregado, setAgregado] = useState(false);
-  const [quitado, setQuitado] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {

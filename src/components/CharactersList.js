@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
-import { Button, Card, CardActionArea, Fab, Grow } from "@material-ui/core";
+import { Card, CardActionArea, Fab, Grow } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { getCharacters, characterDetail } from "../redux/actions";
 import loading from "../img/loading.gif";
@@ -10,26 +10,18 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import LastPageIcon from "@material-ui/icons/LastPage";
 import FirstPageIcon from "@material-ui/icons/FirstPage";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const CharactersList = () => {
   const characters = useSelector((store) => store.characters);
   const cargandoC = useSelector((store) => store.cargandoC);
+  const favoritos = useSelector((store) => store.favoritos);
 
   const [offset, setOffset] = useState(0);
-  const [arrayX, setArrayx] = useState([]);
   const [index, setIndex] = useState(0);
   const [pageNumber, setPageNumber] = useState(0);
   const [growMap, setGrowMap] = useState(false);
   const dispatch = useDispatch();
-
-  // const nextPage = () => {
-  //   let bb = offset;
-  //   setOffset((bb += 21));
-  // };
-  // const previousPage = () => {
-  //   let bb = offset;
-  //   setOffset((bb -= 21));
-  // };
 
   useEffect(() => {
     dispatch(getCharacters(offset));
@@ -40,8 +32,6 @@ const CharactersList = () => {
   }, []);
 
   const linksPaginas = () => {
-    let array = [...Array(72)];
-
     const mostrar = (index) => {
       if (index < 0) return;
 
@@ -50,26 +40,6 @@ const CharactersList = () => {
         setPageNumber(index);
         setOffset(21 * index);
         setIndex(64);
-      }
-
-      if (index >= 65) {
-        dispatch(getCharacters(21 * index));
-        setPageNumber(index);
-        setOffset(21 * index);
-        return;
-      }
-
-      dispatch(getCharacters(21 * index));
-      setPageNumber(index);
-      setOffset(21 * index);
-      setIndex(index);
-    };
-
-    const mostrar1 = (index) => {
-      if (index >= 65) {
-        setPageNumber(index);
-        dispatch(getCharacters(21 * index));
-        return;
       }
 
       dispatch(getCharacters(21 * index));
@@ -82,9 +52,12 @@ const CharactersList = () => {
       <div
         style={{
           display: "flex",
-          flexWrap: "wrap",
+          flexWrap: "",
           justifyContent: "center",
           alignItems: "center",
+          width: "50%",
+          marginLeft: "auto",
+          marginRight: "auto",
         }}
       >
         <Fab
@@ -98,6 +71,17 @@ const CharactersList = () => {
         </Fab>
 
         <Fab
+          disabled={index - 10 < 0}
+          color="primary"
+          id={index}
+          onClick={() => mostrar(index - 10)}
+          size="large"
+          style={{ margin: "20px 20px 20px 12px" }}
+        >
+          <p style={{ fontSize: "22px" }}>-10</p>
+        </Fab>
+
+        <Fab
           color="primary"
           id={index}
           onClick={() => mostrar(index - 1)}
@@ -107,19 +91,26 @@ const CharactersList = () => {
           <ChevronLeftIcon style={{ fontSize: "40px" }} />
         </Fab>
 
-        {array
-          .map((elem, index) => (
-            <Fab
-              color="primary"
-              id={index}
-              onClick={() => mostrar1(index)}
-              size="small"
-              style={{ margin: "20px 20px 20px 12px" }}
-            >
-              {index + 1}
-            </Fab>
-          ))
-          .slice(index + 1, index + 8)}
+        <Typography
+          style={{
+            color: "white",
+            backgroundColor: "#ED1D24",
+            padding: "5px 10px",
+            borderRadius: "40px",
+            width: "120px",
+            height: "46px",
+            marginLeft: "auto",
+            marginRight: "auto",
+            display: "flex",
+            flexWrap: "",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          align="center"
+          variant="h6"
+        >
+          PÁGINA {pageNumber + 1}
+        </Typography>
         <Fab
           color="primary"
           id={index}
@@ -128,6 +119,17 @@ const CharactersList = () => {
           style={{ margin: "20px 20px 20px 12px" }}
         >
           <ChevronRightIcon style={{ fontSize: "40px" }} />
+        </Fab>
+
+        <Fab
+          disabled={index + 10 > 71}
+          color="primary"
+          id={index}
+          onClick={() => mostrar(index + 10)}
+          size="large"
+          style={{ margin: "20px 20px 20px 12px" }}
+        >
+          <p style={{ fontSize: "22px" }}>+10</p>
         </Fab>
 
         <Fab
@@ -202,6 +204,22 @@ const CharactersList = () => {
                       padding: "0px",
                     }}
                   >
+                    {" "}
+                    {favoritos.find((elem) => elem.id === el.id) !==
+                      undefined && (
+                      <FavoriteIcon
+                        style={{
+                          backgroundColor: "white",
+                          padding: "10px",
+                          color: "#ED1D24",
+                          borderRadius: "50%",
+                          boxShadow: "0px 0px 6px #444444",
+                          position: "absolute",
+                          top: "2px",
+                          right: "2px",
+                        }}
+                      />
+                    )}
                     <img
                       style={{
                         borderRadius: "0%",
@@ -265,7 +283,7 @@ const CharactersList = () => {
       </div> */}
       {/* {links()} */}
 
-      <Typography
+      {/* <Typography
         style={{
           color: "white",
           backgroundColor: "#ED1D24",
@@ -279,7 +297,7 @@ const CharactersList = () => {
         variant="h6"
       >
         PAGINA {pageNumber + 1}
-      </Typography>
+      </Typography> */}
       {linksPaginas()}
     </Fragment>
   );
