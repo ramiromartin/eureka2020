@@ -50,6 +50,7 @@ const Favs = () => {
         favoritos.slice(0, 2).map((el) => (
           <Slide in={agregado}>
             <div
+              id={el.id}
               style={{
                 display: "flex",
                 justifyContent: "space-between",

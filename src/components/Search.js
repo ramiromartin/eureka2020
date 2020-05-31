@@ -22,6 +22,8 @@ const Search = () => {
   const submitBuscar = async (e) => {
     e.preventDefault();
 
+    setBusqueda(busqueda.toUpperCase().slice(0, 1) + busqueda.substring(1));
+
     if (busqueda === "") {
       setError1(true);
       setTimeout(() => {
