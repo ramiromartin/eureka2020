@@ -4,6 +4,7 @@ import {
   ADD_FAV,
   REMOVE_FAV,
   SAVE_OFFSET,
+  GET_COMICS,
 } from "./actionsTypes";
 
 import axios from "axios";
@@ -86,6 +87,25 @@ export const saveOffset = (offset) => async (dispatch) => {
     });
   } catch (err) {
     console.log("ERROR GUARDAR OFFSET");
+    console.log(err);
+  }
+};
+
+export const getComics = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(
+      `http://gateway.marvel.com/v1/public/characters/${id}/comics?apikey=496e0b5ccc3316a386580d5e8d42889c`
+    );
+
+    console.log(" COMICS ");
+    console.log(res.data);
+
+    dispatch({
+      type: GET_COMICS,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log("ERROR COMICS");
     console.log(err);
   }
 };

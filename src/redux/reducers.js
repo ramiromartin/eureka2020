@@ -4,6 +4,7 @@ const initialState = {
   characterInfo: {},
   favoritos: [],
   lastOffset: 0,
+  comics: [],
 };
 
 export default function addReducer(state = initialState, action) {
@@ -31,6 +32,12 @@ export default function addReducer(state = initialState, action) {
       return {
         ...state,
         lastOffset: action.payload,
+      };
+
+    case "GET_COMICS":
+      return {
+        ...state,
+        comics: action.payload,
       };
 
     default:

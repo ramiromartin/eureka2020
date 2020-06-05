@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
-import { Button, Fade } from "@material-ui/core";
+import { Button, Fade, Collapse } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import loading from "../img/loading.gif";
-import { addFav } from "../redux/actions";
+import { addFav, getComics } from "../redux/actions";
 import { Link } from "react-router-dom";
 import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded";
 import FavoriteRoundedIcon from "@material-ui/icons/FavoriteRounded";
@@ -11,9 +11,11 @@ import FavoriteRoundedIcon from "@material-ui/icons/FavoriteRounded";
 const CharacterDetail = () => {
   const info = useSelector((store) => store.characterInfo);
   const favoritos = useSelector((store) => store.favoritos);
+  const comics = useSelector((store) => store.comics);
   const dispatch = useDispatch();
   const [agregado, setAgregado] = useState(false);
   const [fadeIn, setFadeIn] = useState(false);
+  const [comicsIn, setComicsIn] = useState(false);
 
   const agregar = (id, image, name) => {
     dispatch(addFav(id, image, name));
@@ -24,6 +26,12 @@ const CharacterDetail = () => {
 
   useEffect(() => {
     setFadeIn(true);
+  }, []);
+
+  useEffect(() => {
+    dispatch(getComics(info.id));
+    console.log("comics");
+    console.log(comics);
   }, []);
 
   useEffect(() => {
@@ -64,19 +72,20 @@ const CharacterDetail = () => {
               <Fade timeout={1000} in={fadeIn}>
                 <img
                   style={{ borderRadius: "5px", marginRight: "10px" }}
-                  height="330"
+                  height="390"
                   src={info.image}
                   alt=""
                 />
               </Fade>
             </div>
+
             <div
               style={{
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-around",
                 alignItems: "center",
-                width: "400px",
+                width: "430px",
                 marginLeft: "20px",
               }}
             >
@@ -85,7 +94,45 @@ const CharacterDetail = () => {
                   ? info.description
                   : "No hay descripcion del Superhéroe"}
               </p>
+
+              <p>
+                CANTIDAD DE APARICIONES EN COMICS:{" "}
+                <span style={{ fontWeight: "bolder" }}>
+                  {" "}
+                  {comics.data ? comics.data.total : "0"}
+                </span>
+              </p>
+              <p style={{ fontWeight: "12px", marginBottom: "5px" }}>
+                ÚLTIMOS COMICS EN LOS QUE APARECIÓ
+              </p>
+              <div style={{ display: "flex" }}>
+                {comics.data ? (
+                  comics.data.results
+                    .map((el) => (
+                      <div style={{ textAlign: "center" }}>
+                        <img
+                          style={{
+                            borderRadius: "3px",
+                            height: "100px",
+                            width: "75px",
+                            margin: "0 3px",
+                          }}
+                          src={`${el.thumbnail.path}.${el.thumbnail.extension}`}
+                          alt=""
+                        />
+                        <p style={{ fontWeight: "12px", marginTop: "5px" }}>
+                          {el.dates[0].date.slice(0, 4)}
+                        </p>
+                      </div>
+                    ))
+                    .slice(0, 4)
+                ) : (
+                  <img src={loading} heigth="50" alt="" />
+                )}
+              </div>
+
               <Button
+                style={{ marginTop: "15px" }}
                 disabled={agregado}
                 onClick={() =>
                   agregar(info.id, info.image, info.name, info.description)
@@ -108,6 +155,7 @@ const CharacterDetail = () => {
       ) : (
         <img src={loading} alt="" />
       )}
+
       <Link to="/" style={{ textDecoration: "none", marginTop: "15px" }}>
         <Button variant="outlined" size="large" style={{ width: "350px" }}>
           VOLVER AL LISTADO
