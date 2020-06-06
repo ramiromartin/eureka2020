@@ -14,6 +14,7 @@ const Header = () => {
   return (
     <div style={{ widht: "100%", textAlign: "center", margin: "30px" }}>
       <Fade timeout={2100} in={fadeIn}>
+        <h1>RM BRANCH</h1>
         <Link to="/">
           <img
             src={mainLogo}
