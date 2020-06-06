@@ -15,6 +15,7 @@ const Header = () => {
     <div style={{ widht: "100%", textAlign: "center", margin: "30px" }}>
       <Fade timeout={2100} in={fadeIn}>
         <Link to="/">
+          <h2>RAMA RM GIT RAMIRO</h2>
           <img
             src={mainLogo}
             alt=""
