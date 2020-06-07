@@ -16,7 +16,7 @@ const Header = () => {
       <Fade timeout={2100} in={fadeIn}>
         <h1>RM BRANCH 1</h1>
         <Link to="/">
-          <h2>RAMA RM GIT RAMIRO</h2>
+          <h2>RAMA MASTER</h2>
           <img
             src={mainLogo}
             alt=""
