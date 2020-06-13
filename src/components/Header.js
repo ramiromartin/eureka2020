@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import mainLogo from "../img/mainLogo.png";
 import Favs from "../components/Favs";
 import { Link } from "react-router-dom";
@@ -14,15 +14,20 @@ const Header = () => {
   return (
     <div style={{ widht: "100%", textAlign: "center", margin: "30px" }}>
       <Fade timeout={2100} in={fadeIn}>
-        <h1>RM BRANCH 1</h1>
-        <Link to="/">
-          <h2>RAMA MASTER</h2>
-          <img
-            src={mainLogo}
-            alt=""
-            style={{ marginLeft: "auto", marginRight: "auto", width: "350px" }}
-          />
-        </Link>
+        <Fragment>
+          <h1>CON SAGAS!</h1>{" "}
+          <Link to="/">
+            <img
+              src={mainLogo}
+              alt=""
+              style={{
+                marginLeft: "auto",
+                marginRight: "auto",
+                width: "350px",
+              }}
+            />
+          </Link>
+        </Fragment>
       </Fade>
       <Favs />
     </div>
