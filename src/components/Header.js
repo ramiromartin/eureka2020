@@ -7,7 +7,20 @@ import { Fade } from "@material-ui/core";
 const Header = () => {
   const [fadeIn, setFadeIn] = useState(false);
 
+  function* sayGenerator() {
+    yield "esto es del yield";
+    yield "esto es del yield 2";
+    return "esto es del return";
+  }
+
   useEffect(() => {
+    let resultado = sayGenerator();
+
+    console.log(resultado.next());
+    console.log(resultado.next());
+    console.log(resultado.next());
+    console.log(resultado.next());
+
     setFadeIn(true);
   }, []);
 
